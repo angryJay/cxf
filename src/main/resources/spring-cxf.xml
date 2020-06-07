@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:jaxws="http://cxf.apache.org/jaxws"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://cxf.apache.org/jaxws
+    http://cxf.apache.org/schemas/jaxws.xsd
+    ">
+    <!--
+        1 导入cxf发布的命名空间
+            xmlns:jaxws="http://cxf.apache.org/jaxws"
+            http://cxf.apache.org/jaxws
+            http://cxf.apache.org/schemas/jaxws.xsd
+        2 通过配置发布webservice服务
+            2.1 发布简单的webservice服务(不需要定义服务器的接口 ，了解)
+                 <jaxws:endpoint address="" implementor="">
+                 </jaxws:endpoint>
+            2.2 发布标准的webservice服务
+                2.2.1 发布的地址  address
+                2.2.2 发布的服务器实现的接口  serviceClass
+                2.2.3 指定服务具体提供者（实现类对象）  jaxws:serviceBean
+     -->
+    <!-- 实例化一个JaxWsServerFactoryBean对象 -->
+    <jaxws:server address="/demo"
+                  serviceClass="com.lujia.cxf.service.HelloServiceItf">
+        <jaxws:serviceBean>
+            <bean class="com.lujia.cxf.service.HelloService"></bean>
+        </jaxws:serviceBean>
+        <jaxws:inInterceptors>
+            <bean class="org.apache.cxf.interceptor.LoggingInInterceptor"></bean>
+            <bean class="com.lujia.cxf.Interceptor.AuthValidateInterceptor"></bean>
+        </jaxws:inInterceptors>
+        <jaxws:outInterceptors>
+            <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor"></bean>
+        </jaxws:outInterceptors>
+    </jaxws:server>
+</beans>
