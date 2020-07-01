@@ -47,7 +47,7 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.11.0</version>
+      <version>2.13.2</version>
     </dependency>
     <!-- 用于清理日志资源
     由于Web应用程序中类加载器的性质，无法通过常规方式清除Log4j资源，
